@@ -70,7 +70,7 @@ $(".slide").find("h1, h2, h3, h4, h5, h6").wrap("<header />");
 // adjust code blocks, wrapping each line in CODE tags -- XXX: theme-specific!?
 $(".slide pre:not(:has(code))").each(function(i, node) { // XXX: this doesn't work for Markdown, as that wraps entire code blocks in both PRE and CODE
 	var el = $(node);
-	var lines = el.html().split("\n"); // XXX: `\n` insufficient!?
+	var lines = el.html().replace(/\r\n|\r/g, "\n").split("\n");
 	el.html("<code>" + lines.join("</code>\n<code>") + "</code>");
 	el.find("code:empty").html("&nbsp;");
 });
