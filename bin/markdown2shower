@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+# generates Shower presentation from Markdown input on STDIN
+
+# TODO: read from first two lines of input
+title=${1:?}
+tagline=${2:?}
+template=${3:-"template.html"}
+
+tmpfile="tmp$$tmp"
+
+# post-process regular Markdown output to account for common mismatches
+~/Scripts/Markdown.pl | \
+		sed -e "s#\(<pre>\)<code>#\1#g" -e "s#</code>\(</pre>\)#\1#g" \
+		> $tmpfile
+
+# templating; replacing placeholders
+sed $template \
+		-e "s/<!-- TITLE -->/$title/g" \
+		-e "s/<!-- TAGLINE -->/$tagline/g" | \
+	awk -v RS='<!-- CONTENTS -->' "NR > 0 { print \$0 > \"${tmpfile}_\" NR }"
+cat ${tmpfile}_1 $tmpfile ${tmpfile}_2
+rm $tmpfile ${tmpfile}_{1,2}
