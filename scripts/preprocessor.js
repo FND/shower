@@ -15,6 +15,9 @@
 //     <h1>Lipsum<h1>
 //     <p>lorem ipsum dolor sit amet</p>
 //
+// Note: If the HR element is followed immediately by an H1 element, the "slide"
+// class may be omitted.
+//
 // TODO:
 // * handle document title and Shower caption (generating the former from the latter)
 // * turn into Node module for static preprocessing
@@ -37,7 +40,8 @@ while(node) {
 	if(!next || el.hasClass("progress")) { // last slide -- XXX: bad cue?
 		wrap(nodes);
 		break;
-	} else if(el.is("hr.slide")) { // new slide
+	} else if(el.is("hr.slide") ||
+			(el.is("hr") && el.next().is("h1"))) { // new slide
 		if(nodes) {
 			wrap(nodes);
 		}
