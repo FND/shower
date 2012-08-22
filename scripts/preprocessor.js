@@ -68,6 +68,14 @@ $(".slide:not(hr)").each(function(i, node) {
 	}
 });
 
+// process non-slide directives -- TODO: document
+$("hr.pragma").each(function(i, node) {
+	var el = $(node);
+	var target = el.next();
+	el.removeClass("pragma").remove();
+	transferAttribs(node, target[0]);
+});
+
 // adjust headings
 $(".slide").find("h1, h2, h3, h4, h5, h6").wrap("<header />");
 
