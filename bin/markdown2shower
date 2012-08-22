@@ -1,11 +1,13 @@
 #!/usr/bin/env sh
 
 # generates Shower presentation from Markdown input on STDIN
+#
+# the first two lines determine title and tagline, respectively
+# an optional argument determines the HTML template to be used
 
-# TODO: read from first two lines of input
-title=${1:?}
-tagline=${2:?}
-template=${3:-"template.html"}
+read title
+read tagline
+template=${1:-"template.html"}
 
 tmpfile="tmp$$tmp"
 
