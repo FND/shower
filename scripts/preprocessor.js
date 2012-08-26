@@ -42,6 +42,7 @@ while(node) {
 		break;
 	} else if(el.is("hr.slide") ||
 			(el.is("hr") && el.next().is("h1"))) { // new slide
+		el.addClass("slide");
 		if(nodes) {
 			wrap(nodes);
 		}
