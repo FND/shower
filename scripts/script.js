@@ -80,6 +80,19 @@
 	function updateProgress(slideNumber) {
 		if (null === progress) { return; }
 		progress.style.width = (100 / (slideList.length - 1) * normalizeSlideNumber(slideNumber)).toFixed(2) + '%';
+
+		/* speaker notes */
+		if(!console || !console.log) {
+			return;
+		}
+		var slide = slideNumber + 1;
+		console.log("==== #" + slide + " ====");
+		var notes = document.querySelectorAll("#slide" + slide + " ul.notes li");
+		var i, note;
+		for(i = 0; i < notes.length; i++) {
+			note = notes[i];
+			console.log(note.textContent || note.innerText); // XXX: ignores markup
+		}
 	}
 
 	function getSlideHash(slideNumber) {
