@@ -86,13 +86,15 @@
 			return;
 		}
 		var slide = slideNumber + 1;
-		console.log("==== #" + slide + " ====");
+		var heading = "==== #" + slide + " ====";
+		console.group ? console.group(heading) : console.log(heading);
 		var notes = document.querySelectorAll("#slide" + slide + " ul.notes li");
 		var i, note;
 		for(i = 0; i < notes.length; i++) {
 			note = notes[i];
 			console.log(note.textContent || note.innerText); // XXX: ignores markup
 		}
+		console.groupEnd && console.groupEnd();
 	}
 
 	function getSlideHash(slideNumber) {
